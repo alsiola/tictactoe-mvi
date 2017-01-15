@@ -7,7 +7,7 @@ var webpack = require('webpack')
 var ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 var buildPath = path.join(process.cwd(), 'build')
-var publicPath = path.join(process.cwd(), 'public')
+var publicPath = path.join(process.cwd(), 'docs')
 
 mkdirp.sync(buildPath)
 
@@ -17,7 +17,7 @@ var compiler = webpack({
   ],
   output: {
     filename: 'bundle.js',
-    path: './public/'
+    path: './docs/'
   },
   module: {
     loaders: [
