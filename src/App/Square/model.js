@@ -5,7 +5,7 @@ export default (intent, props) => {
 
     return intent.gridActions
     .filter(action =>
-        action.type === 'squareClick' && action.payload.number === props.number ||
+        action.type === 'squareFill' && action.payload.number === props.number ||
         action.type === 'reset'
     ).map(action =>
         Object.assign({ className }, { letter: action.type === 'reset' ? '' : action.payload.letter})

@@ -1,7 +1,6 @@
-export const squareClick = (number, letter) => ({
+export const squareClick = number => ({
     type: 'squareClick',
     payload: {
-        number,
-        letter
+        number
     }
 });

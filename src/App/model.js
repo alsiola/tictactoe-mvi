@@ -1,25 +1,20 @@
 import xs from'xstream';
-import checkForWinner from './Utils/checkForWinner';
 
 export default intent => {
-    const winner$ = intent.actions$
-    .filter(action =>
-        action.type === 'squareClick' ||
+    const winMsg$ = intent.actions$
+    .filter(action => 
+        action.type === 'gameWon' ||
         action.type === 'reset'
     )
-    .fold((clickedSquares, action) => (
-        action.type === 'squareClick' ? [...clickedSquares, action.payload] : []
-    ), [])
-    .startWith([])
-    .map(clickedSquares => 
-        checkForWinner(clickedSquares).length > 0 ? 'Winner!' : ''
-    );
-
+    .map(action => 
+        action.type === 'gameWon' ? 'Game won by ' + action.payload.winningArray[0].letter : ''
+    )
+    .startWith('');
 
     return xs.combine(
         intent.gridVtree$,
         intent.controlsVtrees$,
-        winner$
+        winMsg$
     ).map(([gridVtree, controlsVtree, winner]) => ({
         gridVtree,
         controlsVtree,
