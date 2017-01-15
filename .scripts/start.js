@@ -47,7 +47,7 @@ compiler.plugin('done', function () {
 var server = new WebpackDevServer(compiler, {
   historyApiFallback: true,
   hot: true,
-  contentBase: './public',
+  contentBase: './docs',
   stats: 'errors-only'
 })
 server.listen(port)
