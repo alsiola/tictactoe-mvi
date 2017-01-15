@@ -10,12 +10,19 @@ const winningStates = [
 ];
 
 export default squares => {
-    for(let state of winningStates) {
-        const [a,b,c] = state;
-        const theseSquares = squares.filter(square => state.includes(square.number));
-        if(theseSquares.length === 3 && theseSquares.every(square => square.letter === theseSquares[0].letter)) {
-          return state;
-        }
-    }
-    return [];
+    return winningStates
+    .map(state => 
+        squares
+        .filter(square => 
+            state.includes(square.number)
+        )
+    ).filter(squareLine =>
+        squareLine.length === 3 &&
+        squareLine.every(square =>
+            square.letter === squareLine[0].letter
+        )
+    )
+    .reduce((winline, squareLine) =>
+        [...winline, ...squareLine]
+    ,[]);
 }
