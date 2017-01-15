@@ -1,25 +1,14 @@
-import {html} from 'snabbdom-jsx';
-import xs from 'xstream';
-import * as actionCreators from './actionCreators';
 import isolate from '@cycle/isolate';
+import intent from './intent';
+import model from './model';
+import view from './view';
 
 const main = sources => {
-    const resetActions$ = sources.DOM
-    .select('.resetButton')
-    .events('click')
-    .mapTo(actionCreators.reset());
-
-    const vtree$ = xs.of(
-        <div>
-            <button className="resetButton">Reset</button>
-        </div>
-    );
+    const intent$ = intent(sources);
 
     return {
-        DOM: vtree$,
-        actions: xs.merge(
-            resetActions$
-        )
+        DOM: view(model(intent$)),
+        actions: intent$.resetActions$
     }
 }
 
