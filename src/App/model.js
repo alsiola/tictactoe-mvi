@@ -14,10 +14,12 @@ export default intent => {
     return xs.combine(
         intent.gridVtree$,
         intent.controlsVtrees$,
+        intent.historyVtree$,
         winMsg$
-    ).map(([gridVtree, controlsVtree, winner]) => ({
+    ).map(([gridVtree, controlsVtree, history, winner]) => ({
         gridVtree,
         controlsVtree,
+        history,
         winner
     }));
 }

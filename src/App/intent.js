@@ -1,6 +1,7 @@
+import xs from 'xstream';
 import Grid from './Grid/grid';
 import Controls from './Controls/controls';
-import xs from 'xstream';
+import GameHistory from './GameHistory/gameHistory';
 import * as actionCreators from './actionCreators';
 import checkForWinner from './Utils/checkForWinner';
 
@@ -11,6 +12,7 @@ export default sources => {
 
     const controls = Controls(combinedSources);
     const grid = Grid(combinedSources);
+    const history = GameHistory(combinedSources);
 
     const winner$ = xs.merge(
         controls.actions,
@@ -43,8 +45,9 @@ export default sources => {
     actionsProxy$.imitate(actions$);
     
     return {
-        actions$: actions$.startWith({type: 'startup'}),
+        actions$,
         gridVtree$: grid.DOM,
-        controlsVtrees$: controls.DOM
+        controlsVtrees$: controls.DOM,
+        historyVtree$: history.DOM
     }
 };
